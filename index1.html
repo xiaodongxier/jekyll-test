@@ -1,0 +1,34 @@
+<!--
+ * @Date: 2024-02-22 22:39:59
+ * @LastEditTime: 2024-02-22 22:40:33
+ * @Author: wangyongjie
+ * @Note:  
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Repository Content List</title>
+</head>
+<body>
+  <h1>Repository Content List</h1>
+  <ul id="repo-content"></ul> <!-- 在这个列表中展示仓库内容 -->
+  <script>
+    fetch('https://api.github.com/repos/xiaodongxier/jekyll-test/contents/') // 更换为你的用户名和仓库名
+      .then(response => response.json())
+      .then(data => {
+        const ul = document.getElementById('repo-content');
+        data.forEach(file => {
+          const li = document.createElement('li');
+          const a = document.createElement('a');
+          a.href = file.html_url; // 文件的 GitHub URL
+          a.textContent = file.name; // 文件名
+          li.appendChild(a);
+          ul.appendChild(li);
+        });
+      })
+      .catch(error => console.error('Error fetching repository contents:', error));
+  </script>
+</body>
+</html>
